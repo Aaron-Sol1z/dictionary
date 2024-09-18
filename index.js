@@ -43,20 +43,29 @@ function displayWordEntry(data){
         wordDisplay.classList.add("word-display");
         wordEntry.appendChild(wordDisplay);
         //phonetic
-        if(data[i].phonetics.length !== 0){
-            let phoneticText = data[i].phonetics[0].text;
-            for(let l=0; l < data[i].phonetics.length; l++){
-                if(data[i].phonetics[l].text !=='undefined'){
-                    phoneticText = data[i].phonetics[l].text;
+        if(data[i].phonetics.length > 0){
+            //find phonetic text
+            let phoneticText = "";
+            let audioText = "";
+            for(let a=0; a < data[i].phonetics.length; a++){//assign phoneticText and audioText if they exist as a pair
+                if(data[i].phonetics[a].text && data[i].phonetics[a].audio && data[i].phonetics[a].audio.includes("us.mp3")){
+                    phoneticText = data[i].phonetics[a].text;
+                    audioText = data[i].phonetics[a].audio;
+                }
+                else if(data[i].phonetics[a].text){//if phonetic text but no audio
+                    phoneticText = data[i].phonetics[a].text;
+                }
+                else if(data[i].phonetics[a].audio !== ''){//if phonetic audio but no text
+                    audioText = data[i].phonetics[a].audio;
                 }
             }
-            const phoneticDisplay = document.createElement("h5");
-            phoneticDisplay.textContent = `${phoneticText}`;
-            phoneticDisplay.classList.add("phonetic-display");
-            wordEntry.appendChild(phoneticDisplay);
-            //phonetic audio
-            if(data[i].phonetics[0].audio){
-                let audioText = data[i].phonetics[0].audio;
+            if(phoneticText !== ""){
+                const phoneticDisplay = document.createElement("h5");
+                phoneticDisplay.textContent = `${phoneticText}`;
+                phoneticDisplay.classList.add("phonetic-display");
+                wordEntry.appendChild(phoneticDisplay);
+            }
+            if(audioText !== ""){
                 wordEntry.insertAdjacentHTML('beforeend', "<button class='sound-button' onclick='playSound()'><i class='fa-solid fa-volume-high'></i></button>");
                 sound.setAttribute("src", audioText);
             }
