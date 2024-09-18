@@ -44,6 +44,28 @@ button[type="submit"]{
     border: 4px solid var(--plum);
     padding: 10px;
 }
+.word-display{
+    color: var(--blue);
+}
+.phonetic-display{
+    font-style: italic;
+}
+.part-of-speech-display{
+    text-decoration: underline;
+}
+.def-display{
+    margin-left: 20px;
+}
+.example-display{
+    margin-left: 40px;
+    color: var(--gray);
+}
+.error-display{
+    color: var(--black);
+}
+hr{
+    border-top: 2px solid black;
+}
 .fa-solid.fa-volume-high{
     padding: 10px;
     padding-top: 12px;
