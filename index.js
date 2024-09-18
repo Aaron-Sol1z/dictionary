@@ -1,6 +1,7 @@
 const wordForm = document.querySelector(".searchbar");
 const wordInput = document.querySelector(".word-input");
 const wordEntry = document.querySelector(".word-entry");
+const sound = document.getElementById("sound");
 const apiUrl = "https://api.dictionaryapi.dev/api/v2/entries/en/";
 
 wordForm.addEventListener("submit", async event => {
@@ -44,10 +45,21 @@ function displayWordEntry(data){
         //phonetic
         if(data[i].phonetics.length !== 0){
             let phoneticText = data[i].phonetics[0].text;
+            for(let l=0; l < data[i].phonetics.length; l++){
+                if(data[i].phonetics[l].text !=='undefined'){
+                    phoneticText = data[i].phonetics[l].text;
+                }
+            }
             const phoneticDisplay = document.createElement("h5");
             phoneticDisplay.textContent = `${phoneticText}`;
             phoneticDisplay.classList.add("phonetic-display");
             wordEntry.appendChild(phoneticDisplay);
+            //phonetic audio
+            if(data[i].phonetics[0].audio){
+                let audioText = data[i].phonetics[0].audio;
+                wordEntry.insertAdjacentHTML('beforeend', "<button class='sound-button' onclick='playSound()'><i class='fa-solid fa-volume-high'></i></button>");
+                sound.setAttribute("src", audioText);
+            }
         }
         for(let j=0; j < data[i].meanings.length; j++){//iterate through meanings[]
             //part of speech
@@ -77,6 +89,10 @@ function displayWordEntry(data){
             wordEntry.appendChild(document.createElement("hr"));
         }
     }    
+}
+
+function playSound(){
+    sound.play();
 }
 
 function displayError(message){

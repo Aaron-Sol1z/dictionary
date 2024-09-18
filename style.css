@@ -55,6 +55,10 @@ button[type="submit"]{
 .phonetic-display{
     font-style: italic;
 }
+.sound-button{
+    padding: 0px;
+    border-radius: 50px;
+}
 .part-of-speech-display{
     text-decoration: underline;
 }
@@ -76,6 +80,7 @@ hr{
     padding-top: 12px;
     padding-bottom: 12px;
     border: 1px solid var(--plum);
+    color: var(--blue);
     border-radius: 50px;
 }
 footer{
